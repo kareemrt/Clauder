@@ -393,7 +393,7 @@ int main(int argc, char *argv[])
         die("listen: %s", strerror(errno));
 
     printf("Clauder web server listening on port %d\n", port);
-    char cwd_buf[PATH_MAX_LEN];
+    char cwd_buf[PATH_MAX];
     printf("Serving files from: %s\n",
            getcwd(cwd_buf, sizeof cwd_buf) ? cwd_buf : "(unknown)");
     fflush(stdout);
