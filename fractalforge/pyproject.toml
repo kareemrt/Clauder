@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "fractalforge"
+version = "1.0.0"
+description = "Terminal fractal art engine — Mandelbrot, Julia, Sierpiński & more"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+keywords = ["fractals", "terminal", "art", "mandelbrot", "julia", "ascii"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Artistic Software",
+    "Topic :: Scientific/Engineering :: Mathematics",
+    "Topic :: Terminals",
+]
+dependencies = []
+
+[project.scripts]
+fractalforge = "fractalforge.cli:main"
+ff = "fractalforge.cli:main"
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0", "pytest-cov"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-v"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["fractalforge*"]
