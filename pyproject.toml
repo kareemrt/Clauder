@@ -1,0 +1,42 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.backends.legacy:build"
+
+[project]
+name = "fractalforge"
+version = "1.0.0"
+description = "Interactive terminal fractal explorer — explore infinite mathematical beauty"
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.9"
+keywords = ["fractal", "mandelbrot", "julia", "terminal", "visualization", "mathematics"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Console",
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Topic :: Scientific/Engineering :: Mathematics",
+    "Topic :: Artistic Software",
+]
+dependencies = [
+    "numpy>=1.24",
+    "Pillow>=10.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest", "black", "ruff"]
+
+[project.scripts]
+fractalforge = "fractalforge.main:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["fractalforge*"]
+
+[tool.ruff]
+line-length = 100
+
+[tool.black]
+line-length = 100
