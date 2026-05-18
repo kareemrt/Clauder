@@ -1,0 +1,9 @@
+# Harmoniq has zero required dependencies — pure Python 3.9+
+# Optional: install these for extra features
+
+# For running tests
+pytest>=7.0
+
+# For Jupyter notebook demos
+# jupyter>=1.0
+# matplotlib>=3.5   (for graphical waveform plots)
