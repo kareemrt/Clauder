@@ -1,0 +1,3 @@
+# Labyrinthine has zero external dependencies.
+# All features use Python 3.8+ standard library only.
+# (curses is included in Python on Linux/macOS; on Windows install windows-curses)
