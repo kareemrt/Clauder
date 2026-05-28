@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.backends.legacy:build"
+
+[project]
+name = "fractal-dreams"
+version = "1.0.0"
+description = "A terminal fractal explorer with Claude AI narration"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+dependencies = [
+    "anthropic>=0.40.0",
+]
+
+[project.scripts]
+fractal-dreams = "fractal_dreams.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["fractal_dreams*"]
