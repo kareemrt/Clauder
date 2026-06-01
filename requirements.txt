@@ -1,0 +1,5 @@
+# FractalForge has no required third-party dependencies.
+# All rendering uses the Python standard library + ANSI escape codes.
+#
+# Optional: colorama (Windows ANSI support)
+colorama>=0.4.6
