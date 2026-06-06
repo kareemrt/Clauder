@@ -1,0 +1,43 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "clauder"
+version = "1.0.0"
+description = "Git Repository Intelligence Dashboard — beautiful terminal analytics for any git repo"
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [{ name = "kareemrt", email = "kareemrt@gmail.com" }]
+keywords = ["git", "analytics", "terminal", "dashboard", "cli", "developer-tools"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Version Control :: Git",
+]
+dependencies = [
+    "click>=8.0",
+    "rich>=13.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/kareemrt/clauder"
+Repository = "https://github.com/kareemrt/clauder"
+"Bug Tracker" = "https://github.com/kareemrt/clauder/issues"
+
+[project.scripts]
+clauder = "clauder.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-dir]
+"" = "src"
