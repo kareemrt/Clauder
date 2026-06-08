@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "lsystem-garden"
+version = "0.1.0"
+description = "Grow fractal plants and curves from L-system grammars, rendered as SVG."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [{ name = "Clauder" }]
+keywords = ["l-system", "fractal", "generative-art", "svg", "turtle-graphics"]
+
+[project.optional-dependencies]
+dev = ["pytest>=7"]
+
+[project.scripts]
+lsystem-garden = "lsystem_garden.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["lsystem_garden*"]
