@@ -1,0 +1,23 @@
+[project]
+name = "fractal-garden"
+version = "0.1.0"
+description = "Grow and render Lindenmayer-system (L-system) fractals from the command line."
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "matplotlib>=3.7",
+    "pillow>=9.0",
+]
+
+[project.scripts]
+fractal-garden = "fractal_garden.cli:main"
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["fractal_garden"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
