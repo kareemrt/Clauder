@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "fractal-garden"
+version = "0.1.0"
+description = "Grow fractal plants and curves from L-systems as SVG art"
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+
+[project.scripts]
+fractal-garden = "fractal_garden.cli:main"
+
+[tool.setuptools]
+packages = ["fractal_garden"]
+
+[project.optional-dependencies]
+dev = ["pytest"]
