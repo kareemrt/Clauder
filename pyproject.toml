@@ -1,0 +1,17 @@
+[project]
+name = "lsystemgarden"
+version = "0.1.0"
+description = "Grow botanical fractals from Lindenmayer-system grammars and render them to SVG."
+requires-python = ">=3.10"
+readme = "README.md"
+license = { text = "MIT" }
+
+[project.scripts]
+lsystemgarden = "lsystemgarden.cli:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["lsystemgarden*"]
