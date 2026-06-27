@@ -1,0 +1,31 @@
+{
+  "rows": 27,
+  "cols": 27,
+  "seed": 20260627,
+  "results": [
+    {
+      "name": "BFS",
+      "nodes_explored": 441,
+      "path_length": 266,
+      "elapsed_seconds": 0.0004889679999564578
+    },
+    {
+      "name": "DFS",
+      "nodes_explored": 686,
+      "path_length": 266,
+      "elapsed_seconds": 0.0007615550000537041
+    },
+    {
+      "name": "Dijkstra",
+      "nodes_explored": 442,
+      "path_length": 266,
+      "elapsed_seconds": 0.0006621890000246822
+    },
+    {
+      "name": "A*",
+      "nodes_explored": 428,
+      "path_length": 266,
+      "elapsed_seconds": 0.0007649140000012267
+    }
+  ]
+}
