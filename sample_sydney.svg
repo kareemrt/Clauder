@@ -1,0 +1,174 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="880" viewBox="0 0 800 880">
+  <defs>
+    <radialGradient id="skyGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"   stop-color="#0a0a2e"/>
+      <stop offset="60%"  stop-color="#050520"/>
+      <stop offset="100%" stop-color="#010112"/>
+    </radialGradient>
+    <radialGradient id="horizonGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="70%"  stop-color="#000000" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#1a3a6a" stop-opacity="0.4"/>
+    </radialGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="1.8" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="bigGlow" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="3.5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="labelShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="0" stdDeviation="2" flood-color="#000033" flood-opacity="0.9"/>
+    </filter>
+    <clipPath id="skyClip">
+      <circle cx="400" cy="400" r="340"/>
+    </clipPath>
+  </defs>
+  <rect width="800" height="880" fill="#000005"/>
+  <circle cx="400" cy="400" r="340" fill="url(#skyGrad)"/>
+  <g clip-path="url(#skyClip)" opacity="0.18">
+    <circle cx="400" cy="400" r="340.0" fill="none" stroke="#4488cc" stroke-width="0.4"/>
+    <circle cx="400" cy="400" r="283.3" fill="none" stroke="#4488cc" stroke-width="0.4"/>
+    <circle cx="400" cy="400" r="226.7" fill="none" stroke="#4488cc" stroke-width="0.4"/>
+    <circle cx="400" cy="400" r="170.0" fill="none" stroke="#4488cc" stroke-width="0.4"/>
+    <circle cx="400" cy="400" r="113.3" fill="none" stroke="#4488cc" stroke-width="0.4"/>
+    <circle cx="400" cy="400" r="56.7" fill="none" stroke="#4488cc" stroke-width="0.4"/>
+    <line x1="400" y1="400" x2="400.0" y2="60.0" stroke="#4488cc" stroke-width="0.4"/>
+    <line x1="400" y1="400" x2="570.0" y2="105.6" stroke="#4488cc" stroke-width="0.4"/>
+    <line x1="400" y1="400" x2="694.4" y2="230.0" stroke="#4488cc" stroke-width="0.4"/>
+    <line x1="400" y1="400" x2="740.0" y2="400.0" stroke="#4488cc" stroke-width="0.4"/>
+    <line x1="400" y1="400" x2="694.4" y2="570.0" stroke="#4488cc" stroke-width="0.4"/>
+    <line x1="400" y1="400" x2="570.0" y2="694.4" stroke="#4488cc" stroke-width="0.4"/>
+    <line x1="400" y1="400" x2="400.0" y2="740.0" stroke="#4488cc" stroke-width="0.4"/>
+    <line x1="400" y1="400" x2="230.0" y2="694.4" stroke="#4488cc" stroke-width="0.4"/>
+    <line x1="400" y1="400" x2="105.6" y2="570.0" stroke="#4488cc" stroke-width="0.4"/>
+    <line x1="400" y1="400" x2="60.0" y2="400.0" stroke="#4488cc" stroke-width="0.4"/>
+    <line x1="400" y1="400" x2="105.6" y2="230.0" stroke="#4488cc" stroke-width="0.4"/>
+    <line x1="400" y1="400" x2="230.0" y2="105.6" stroke="#4488cc" stroke-width="0.4"/>
+  </g>
+  <g clip-path="url(#skyClip)"><ellipse cx="400" cy="400" rx="320" ry="95" transform="rotate(35 400 400)" fill="none" stroke="#ffffff" stroke-width="55" opacity="0.03" stroke-opacity="0.06"/><ellipse cx="400" cy="400" rx="310" ry="80" transform="rotate(35 400 400)" fill="none" stroke="#aaccff" stroke-width="30" opacity="0.025" stroke-opacity="0.04"/></g>
+  <g clip-path="url(#skyClip)" opacity="0.55" stroke="#4a90d9" stroke-width="0.8" stroke-dasharray="4,3">
+    <line x1="621.9" y1="272.3" x2="639.8" y2="291.1"/>
+    <line x1="621.9" y1="272.3" x2="609.7" y2="283.9"/>
+    <line x1="639.8" y1="291.1" x2="614.5" y2="320.0"/>
+    <line x1="609.7" y1="283.9" x2="611.3" y2="314.5"/>
+    <line x1="611.3" y1="314.5" x2="614.5" y2="320.0"/>
+    <line x1="614.5" y1="320.0" x2="618.0" y2="325.1"/>
+    <line x1="618.0" y1="325.1" x2="614.9" y2="360.0"/>
+    <line x1="611.3" y1="314.5" x2="587.1" y2="339.9"/>
+    <line x1="618.0" y1="325.1" x2="587.1" y2="339.9"/>
+    <line x1="587.1" y1="339.9" x2="614.9" y2="360.0"/>
+    <line x1="200.3" y1="666.7" x2="179.3" y2="660.6"/>
+    <line x1="179.3" y1="660.6" x2="172.8" y2="668.0"/>
+    <line x1="172.8" y1="668.0" x2="171.7" y2="662.4"/>
+    <line x1="692.2" y1="226.1" x2="686.3" y2="267.8"/>
+    <line x1="563.4" y1="227.1" x2="612.3" y2="186.7"/>
+    <line x1="563.4" y1="227.1" x2="513.2" y2="188.0"/>
+    <line x1="289.2" y1="168.1" x2="352.7" y2="138.4"/>
+    <line x1="352.7" y1="138.4" x2="406.3" y2="112.2"/>
+    <line x1="477.7" y1="84.9" x2="468.3" y2="118.9"/>
+    <line x1="222.5" y1="235.9" x2="223.2" y2="181.8"/>
+    <line x1="223.2" y1="181.8" x2="289.2" y2="168.1"/>
+    <line x1="289.2" y1="168.1" x2="292.6" y2="222.3"/>
+    <line x1="292.6" y1="222.3" x2="222.5" y2="235.9"/>
+    <line x1="222.5" y1="235.9" x2="143.6" y2="286.6"/>
+    <line x1="149.2" y1="615.3" x2="127.8" y2="609.7"/>
+    <line x1="127.8" y1="609.7" x2="114.9" y2="565.5"/>
+    <line x1="149.2" y1="615.3" x2="114.9" y2="565.5"/>
+    <line x1="148.4" y1="361.1" x2="176.6" y2="431.5"/>
+    <line x1="148.4" y1="361.1" x2="143.6" y2="286.6"/>
+  </g>
+  <g clip-path="url(#skyClip)">
+    <circle cx="621.85" cy="272.29" r="1.45" fill="#fffaf0" filter="url(#glow)" opacity="0.95"/>
+    <circle cx="692.18" cy="226.10" r="1.75" fill="#fffaf0" filter="url(#glow)" opacity="0.95"/>
+    <circle cx="148.40" cy="361.09" r="1.88" fill="#fffaf0" filter="url(#glow)" opacity="0.95"/>
+    <circle cx="513.22" cy="188.03" r="1.92" fill="#fffaf0" filter="url(#glow)" opacity="0.95"/>
+    <circle cx="176.60" cy="431.55" r="1.94" fill="#fffaf0" filter="url(#glow)" opacity="0.95"/>
+    <circle cx="292.63" cy="222.29" r="1.95" fill="#fffaf0" filter="url(#glow)" opacity="0.95"/>
+    <circle cx="127.81" cy="609.73" r="2.07" fill="#fffaf0" filter="url(#glow)" opacity="0.95"/>
+    <circle cx="171.72" cy="662.42" r="2.07" fill="#fffaf0" filter="url(#glow)" opacity="0.95"/>
+    <circle cx="375.69" cy="44.48" r="2.09" fill="#fffaf0" filter="url(#glow)" opacity="0.95"/>
+    <circle cx="222.51" cy="235.87" r="2.26" fill="#f0f8ff" filter="url(#glow)" opacity="0.95"/>
+    <circle cx="223.25" cy="181.79" r="2.30" fill="#f0f8ff" filter="url(#glow)" opacity="0.95"/>
+    <circle cx="179.30" cy="660.63" r="2.33" fill="#f0f8ff" filter="url(#glow)" opacity="0.95"/>
+    <circle cx="143.62" cy="286.61" r="2.34" fill="#f0f8ff" filter="url(#glow)" opacity="0.95"/>
+    <circle cx="615.61" cy="553.57" r="2.48" fill="#f0f8ff" filter="url(#glow)" opacity="0.95"/>
+    <circle cx="611.34" cy="314.53" r="2.49" fill="#f0f8ff" filter="url(#glow)" opacity="0.95"/>
+    <circle cx="337.02" cy="58.71" r="2.49" fill="#f0f8ff" filter="url(#glow)" opacity="0.95"/>
+    <circle cx="406.29" cy="112.15" r="2.61" fill="#f0f8ff" filter="url(#glow)" opacity="0.95"/>
+    <circle cx="468.34" cy="118.88" r="2.62" fill="#f0f8ff" filter="url(#glow)" opacity="0.95"/>
+    <circle cx="614.87" cy="360.03" r="2.64" fill="#f0f8ff" filter="url(#glow)" opacity="0.95"/>
+    <circle cx="289.18" cy="168.13" r="2.64" fill="#f0f8ff" filter="url(#glow)" opacity="0.95"/>
+    <circle cx="352.70" cy="138.39" r="2.64" fill="#f0f8ff" filter="url(#glow)" opacity="0.95"/>
+    <circle cx="114.91" cy="565.51" r="2.66" fill="#f0f8ff" filter="url(#glow)" opacity="0.95"/>
+    <circle cx="333.14" cy="345.21" r="2.68" fill="#f0f8ff" filter="url(#glow)" opacity="0.95"/>
+    <circle cx="410.14" cy="183.47" r="2.70" fill="#f0f8ff" filter="url(#glow)" opacity="0.95"/>
+    <circle cx="629.19" cy="411.38" r="2.72" fill="#f0f8ff" filter="url(#glow)" opacity="0.95"/>
+    <circle cx="258.89" cy="570.21" r="2.75" fill="#f0f8ff" filter="url(#glow)" opacity="0.95"/>
+    <circle cx="558.02" cy="607.88" r="2.76" fill="#f0f8ff" filter="url(#glow)" opacity="0.95"/>
+    <circle cx="686.28" cy="267.84" r="2.76" fill="#f0f8ff" filter="url(#glow)" opacity="0.95"/>
+    <circle cx="330.18" cy="664.43" r="2.78" fill="#f0f8ff" filter="url(#glow)" opacity="0.95"/>
+    <circle cx="200.32" cy="666.65" r="2.82" fill="#f0f8ff" filter="url(#glow)" opacity="0.95"/>
+    <circle cx="535.94" cy="601.21" r="2.83" fill="#f0f8ff" filter="url(#glow)" opacity="0.95"/>
+    <circle cx="149.22" cy="615.28" r="2.83" fill="#f0f8ff" filter="url(#glow)" opacity="0.95"/>
+    <circle cx="639.09" cy="471.92" r="2.85" fill="#f0f8ff" filter="url(#glow)" opacity="0.95"/>
+    <circle cx="477.73" cy="84.85" r="2.89" fill="#f0f8ff" filter="url(#glow)" opacity="0.95"/>
+    <circle cx="587.03" cy="574.31" r="2.92" fill="#f0f8ff" filter="url(#glow)" opacity="0.95"/>
+    <circle cx="617.97" cy="325.05" r="2.93" fill="#f0f8ff" filter="url(#glow)" opacity="0.95"/>
+    <circle cx="614.45" cy="320.03" r="2.97" fill="#f0f8ff" filter="url(#glow)" opacity="0.95"/>
+    <circle cx="488.56" cy="627.35" r="3.00" fill="#f0f8ff" filter="url(#glow)" opacity="0.95"/>
+    <circle cx="612.32" cy="186.74" r="3.02" fill="#f0f8ff" filter="url(#glow)" opacity="0.95"/>
+    <circle cx="609.72" cy="283.92" r="3.02" fill="#f0f8ff" filter="url(#glow)" opacity="0.95"/>
+    <circle cx="172.79" cy="667.98" r="3.04" fill="#f0f8ff" filter="url(#glow)" opacity="0.95"/>
+    <circle cx="465.76" cy="722.84" r="3.07" fill="#f0f8ff" filter="url(#glow)" opacity="0.95"/>
+    <circle cx="626.07" cy="474.44" r="3.15" fill="#f0f8ff" filter="url(#glow)" opacity="0.95"/>
+    <circle cx="448.82" cy="718.68" r="3.38" fill="#dff0ff" filter="url(#glow)" opacity="0.95"/>
+    <circle cx="256.80" cy="415.71" r="3.46" fill="#dff0ff" filter="url(#glow)" opacity="0.95"/>
+    <circle cx="454.23" cy="702.51" r="3.72" fill="#dff0ff" filter="url(#bigGlow)" opacity="0.95"/>
+    <circle cx="563.37" cy="227.13" r="3.73" fill="#dff0ff" filter="url(#bigGlow)" opacity="0.95"/>
+    <circle cx="395.44" cy="723.91" r="3.95" fill="#dff0ff" filter="url(#bigGlow)" opacity="0.95"/>
+    <circle cx="389.70" cy="488.58" r="4.09" fill="#cce8ff" filter="url(#bigGlow)" opacity="0.95"/>
+    <circle cx="389.70" cy="488.58" r="14.30" fill="#cce8ff" opacity="0.08"/>
+    <circle cx="639.84" cy="291.09" r="4.12" fill="#cce8ff" filter="url(#bigGlow)" opacity="0.95"/>
+    <circle cx="639.84" cy="291.09" r="14.43" fill="#cce8ff" opacity="0.08"/>
+    <circle cx="734.52" cy="359.83" r="4.19" fill="#cce8ff" filter="url(#bigGlow)" opacity="0.95"/>
+    <circle cx="734.52" cy="359.83" r="14.68" fill="#cce8ff" opacity="0.08"/>
+    <circle cx="587.10" cy="339.86" r="4.39" fill="#cce8ff" filter="url(#bigGlow)" opacity="0.95"/>
+    <circle cx="587.10" cy="339.86" r="15.37" fill="#cce8ff" opacity="0.08"/>
+    <circle cx="583.91" cy="106.63" r="4.43" fill="#cce8ff" filter="url(#bigGlow)" opacity="0.95"/>
+    <circle cx="583.91" cy="106.63" r="15.50" fill="#cce8ff" opacity="0.08"/>
+    <circle cx="371.21" cy="719.45" r="4.74" fill="#cce8ff" filter="url(#bigGlow)" opacity="0.95"/>
+    <circle cx="371.21" cy="719.45" r="16.60" fill="#cce8ff" opacity="0.08"/>
+    <circle cx="537.21" cy="529.86" r="5.15" fill="#cce8ff" filter="url(#bigGlow)" opacity="0.95"/>
+    <circle cx="537.21" cy="529.86" r="18.02" fill="#cce8ff" opacity="0.08"/>
+    <circle cx="648.56" cy="420.06" r="5.81" fill="#cce8ff" filter="url(#bigGlow)" opacity="0.95"/>
+    <circle cx="648.56" cy="420.06" r="20.35" fill="#cce8ff" opacity="0.08"/>
+  </g>
+  <g clip-path="url(#skyClip)" filter="url(#labelShadow)">
+    <text x="657.4" y="418.1" font-family="Georgia, serif" font-size="12" fill="#aaccff" opacity="0.85">Sirius</text>
+    <text x="545.4" y="527.9" font-family="Georgia, serif" font-size="11" fill="#aaccff" opacity="0.85">Canopus</text>
+    <text x="379.0" y="717.4" font-family="Georgia, serif" font-size="10" fill="#aaccff" opacity="0.85">Rigil Kentaurus</text>
+    <text x="591.3" y="104.6" font-family="Georgia, serif" font-size="9" fill="#aaccff" opacity="0.85">Capella</text>
+    <text x="594.5" y="337.9" font-family="Georgia, serif" font-size="9" fill="#aaccff" opacity="0.85">Rigel</text>
+    <text x="741.7" y="357.8" font-family="Georgia, serif" font-size="9" fill="#aaccff" opacity="0.85">Procyon</text>
+    <text x="396.8" y="486.6" font-family="Georgia, serif" font-size="9" fill="#aaccff" opacity="0.85">Achernar</text>
+    <text x="647.0" y="289.1" font-family="Georgia, serif" font-size="9" fill="#aaccff" opacity="0.85">Betelgeuse</text>
+    <text x="402.4" y="721.9" font-family="Georgia, serif" font-size="9" fill="#aaccff" opacity="0.85">Hadar</text>
+    <text x="570.1" y="225.1" font-family="Georgia, serif" font-size="8" fill="#aaccff" opacity="0.85">Aldebaran</text>
+    <text x="461.0" y="700.5" font-family="Georgia, serif" font-size="8" fill="#aaccff" opacity="0.85">Acrux</text>
+    <text x="263.3" y="413.7" font-family="Georgia, serif" font-size="8" fill="#aaccff" opacity="0.85">Fomalhaut</text>
+    <text x="455.2" y="716.7" font-family="Georgia, serif" font-size="8" fill="#aaccff" opacity="0.85">Mimosa</text>
+    <text x="632.2" y="472.4" font-family="Georgia, serif" font-size="7" fill="#aaccff" opacity="0.85">Adhara</text>
+  </g>
+  <circle cx="400" cy="400" r="340" fill="none" stroke="#2255aa" stroke-width="1.5" opacity="0.7"/>
+  <circle cx="400" cy="400" r="340" fill="url(#horizonGlow)"/>
+  <text x="400" y="34" text-anchor="middle" font-family="monospace" font-size="13" font-weight="bold" fill="#6699cc" letter-spacing="1">N</text>
+  <text x="400" y="772" text-anchor="middle" font-family="monospace" font-size="13" font-weight="bold" fill="#6699cc" letter-spacing="1">S</text>
+  <text x="768" y="404" text-anchor="middle" font-family="monospace" font-size="13" font-weight="bold" fill="#6699cc" letter-spacing="1">E</text>
+  <text x="28" y="404" text-anchor="middle" font-family="monospace" font-size="13" font-weight="bold" fill="#6699cc" letter-spacing="1">W</text>
+  <text x="403" y="183" font-family="monospace" font-size="8" fill="#336699" opacity="0.6">30°</text>
+  <text x="403" y="297" font-family="monospace" font-size="8" fill="#336699" opacity="0.6">60°</text>
+  <text x="400" y="825" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="22" font-weight="bold" fill="#d0e8ff" letter-spacing="2">Winter Night · Sydney</text>
+  <text x="400" y="849" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="12" fill="#6688aa" letter-spacing="1">July 4, 2025  ·  21:00 UTC</text>
+  <text x="400" y="870" text-anchor="middle" font-family="monospace" font-size="10" fill="#445566">33.87°S  151.21°E</text>
+</svg>
