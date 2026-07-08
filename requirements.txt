@@ -1,0 +1,6 @@
+# Pulsar has zero runtime dependencies — it uses only the Python standard library
+# and the system `git` binary.
+
+# Optional development dependencies:
+# pytest>=7.0
+# twine>=4.0
