@@ -1,0 +1,3 @@
+# LifeSim has zero external dependencies.
+# All functionality is built on the Python standard library (curses, argparse, random, time).
+# Python 3.8+ required.
