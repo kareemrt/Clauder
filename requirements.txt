@@ -1,0 +1,4 @@
+# GitPulse has zero runtime dependencies — pure Python standard library.
+# Optional dev tools:
+# pytest>=7
+# build
