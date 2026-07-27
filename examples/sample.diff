@@ -1,0 +1,49 @@
+diff --git a/src/auth.py b/src/auth.py
+index 1a2b3c4..5d6e7f8 100644
+--- a/src/auth.py
++++ b/src/auth.py
+@@ -1,20 +1,22 @@
+ import hashlib
++import bcrypt
+ from database import db
+
+-SECRET_KEY = "super_secret_123"
++import os
++SECRET_KEY = os.environ.get("SECRET_KEY")
+
+ def authenticate(user, password):
+     if not user:
+         return None
+-    hashed = hashlib.md5(password.encode()).hexdigest()
+-    return db.query(f"SELECT * FROM users WHERE hash='{hashed}'")
++    pw_bytes = password.encode("utf-8")
++    if not bcrypt.checkpw(pw_bytes, user.password_hash):
++        return None
++    return user
+
+ def get_user(user_id):
+-    return db.query(f"SELECT * FROM users WHERE id={user_id}")
++    return db.query("SELECT * FROM users WHERE id=?", (user_id,))
+
+ def list_users():
+-    users = db.query("SELECT * FROM users")
+-    print(users)
+-    return users
++    return db.query("SELECT id, username, email FROM users")
+diff --git a/src/utils.py b/src/utils.py
+index aaaa111..bbb2222 100644
+--- a/src/utils.py
++++ b/src/utils.py
+@@ -5,8 +5,12 @@ def process_data(items):
+     result = []
+     for item in items:
+-        if item != None:
+-            result.append(item.value * 2)
++        if item is not None:
++            result.append(item.value * 2)
++    return result
++
++def validate_email(email: str) -> bool:
++    import re
++    pattern = r'^[\w.-]+@[\w.-]+\.\w+$'
++    return bool(re.match(pattern, email))
