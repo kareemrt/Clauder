@@ -1,0 +1,4 @@
+# Mandelbrot Voyage has no required dependencies — pure Python 3.8+ stdlib only.
+# The packages below are optional quality-of-life enhancements.
+
+# colorama>=0.4   # Better Windows terminal color support (already included in many envs)
