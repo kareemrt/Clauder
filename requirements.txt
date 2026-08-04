@@ -1,0 +1,6 @@
+# GitPulse has zero runtime dependencies — pure Python standard library only.
+# Python 3.8+ required.
+#
+# Optional (for development):
+# pytest>=7.0      # testing
+# ruff>=0.1        # linting
