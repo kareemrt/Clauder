@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.backends.legacy:build"
+
+[project]
+name = "spectra-fractals"
+version = "1.0.0"
+description = "Terminal Fractal Explorer — Mandelbrot, Julia, Burning Ship, Newton"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Claude", email = "noreply@anthropic.com" }]
+keywords = ["fractal", "mandelbrot", "julia", "visualization", "cli", "ascii-art"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Topic :: Scientific/Engineering :: Mathematics",
+    "Topic :: Multimedia :: Graphics",
+    "Environment :: Console",
+]
+dependencies = ["numpy>=1.24", "pillow>=9.0"]
+
+[project.scripts]
+spectra = "spectra.cli:main"
+
+[project.optional-dependencies]
+dev = ["pytest>=7.0"]
+
+[tool.setuptools.packages.find]
+include = ["spectra*"]
