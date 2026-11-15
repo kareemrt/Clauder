@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Particle Life — Emergent Universe</title>
+  <link rel="stylesheet" href="styles/main.css" />
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+
+  <div id="ui">
+    <div id="header">
+      <h1>⚛ Particle Life</h1>
+      <p id="subtitle">Emergent Universe Simulator</p>
+    </div>
+
+    <div class="section">
+      <label class="section-title">PRESETS</label>
+      <div id="presets">
+        <button class="preset-btn active" data-preset="cells">Cells</button>
+        <button class="preset-btn" data-preset="galaxy">Galaxy</button>
+        <button class="preset-btn" data-preset="ecology">Ecology</button>
+        <button class="preset-btn" data-preset="predators">Predators</button>
+        <button class="preset-btn" data-preset="harmony">Harmony</button>
+        <button class="preset-btn" data-preset="chaos">Chaos</button>
+      </div>
+    </div>
+
+    <div class="section">
+      <label class="section-title">SPECIES INTERACTIONS</label>
+      <div id="matrix-container">
+        <canvas id="matrix-canvas" width="150" height="150"></canvas>
+        <div id="matrix-labels"></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <label class="section-title">PARAMETERS</label>
+      <div class="slider-group">
+        <label>Particles <span id="particles-val">1200</span></label>
+        <input type="range" id="particles-slider" min="200" max="2000" value="1200" step="100" />
+      </div>
+      <div class="slider-group">
+        <label>Speed <span id="speed-val">1.0×</span></label>
+        <input type="range" id="speed-slider" min="1" max="30" value="10" step="1" />
+      </div>
+      <div class="slider-group">
+        <label>Interaction Radius <span id="radius-val">80</span></label>
+        <input type="range" id="radius-slider" min="30" max="150" value="80" step="5" />
+      </div>
+      <div class="slider-group">
+        <label>Friction <span id="friction-val">0.05</span></label>
+        <input type="range" id="friction-slider" min="1" max="20" value="5" step="1" />
+      </div>
+    </div>
+
+    <div class="section" id="actions">
+      <button id="btn-randomize" class="action-btn primary">⟳ Randomize Rules</button>
+      <button id="btn-scatter" class="action-btn">↗ Scatter</button>
+      <button id="btn-pause" class="action-btn">⏸ Pause</button>
+    </div>
+
+    <div id="stats">
+      <span id="fps-counter">— fps</span>
+      <span id="particle-count">— particles</span>
+    </div>
+
+    <div id="preset-desc"></div>
+  </div>
+
+  <div id="legend">
+    <div id="legend-items"></div>
+  </div>
+
+  <div id="tooltip">Click canvas to spawn particles</div>
+
+  <script src="src/presets.js"></script>
+  <script src="src/simulation.js"></script>
+  <script src="src/main.js"></script>
+</body>
+</html>
