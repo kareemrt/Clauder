@@ -1,0 +1,27 @@
+{
+  "food_categories": {
+    "beef": {"kg_co2_per_kg": 27.0, "unit": "kg"},
+    "lamb": {"kg_co2_per_kg": 39.2, "unit": "kg"},
+    "pork": {"kg_co2_per_kg": 12.1, "unit": "kg"},
+    "chicken": {"kg_co2_per_kg": 6.9, "unit": "kg"},
+    "fish": {"kg_co2_per_kg": 6.1, "unit": "kg"},
+    "dairy": {"kg_co2_per_kg": 3.2, "unit": "kg"},
+    "eggs": {"kg_co2_per_kg": 4.5, "unit": "kg"},
+    "vegetables": {"kg_co2_per_kg": 2.0, "unit": "kg"},
+    "fruits": {"kg_co2_per_kg": 1.1, "unit": "kg"},
+    "grains": {"kg_co2_per_kg": 2.7, "unit": "kg"},
+    "legumes": {"kg_co2_per_kg": 0.9, "unit": "kg"},
+    "bread": {"kg_co2_per_kg": 1.3, "unit": "kg"},
+    "cheese": {"kg_co2_per_kg": 13.5, "unit": "kg"},
+    "butter": {"kg_co2_per_kg": 23.8, "unit": "kg"},
+    "tofu": {"kg_co2_per_kg": 3.0, "unit": "kg"},
+    "nuts": {"kg_co2_per_kg": 2.3, "unit": "kg"},
+    "other": {"kg_co2_per_kg": 2.5, "unit": "kg"}
+  },
+  "stats": {
+    "avg_household_waste_kg_per_year": 74,
+    "avg_household_waste_usd_per_year": 1500,
+    "avg_global_food_waste_pct": 0.33,
+    "food_waste_global_emissions_pct": 0.08
+  }
+}
