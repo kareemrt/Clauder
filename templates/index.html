@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FreshSave — Stop Wasting Food</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <div class="header-inner">
+        <div class="logo">
+          <span class="logo-icon">🌱</span>
+          <span class="logo-text">FreshSave</span>
+        </div>
+        <nav class="nav">
+          <button class="nav-btn active" data-tab="pantry">Pantry</button>
+          <button class="nav-btn" data-tab="recipes">AI Recipes</button>
+          <button class="nav-btn" data-tab="impact">My Impact</button>
+        </nav>
+        <button class="btn btn-primary" id="addItemBtn">+ Add Item</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Alert Banner -->
+  <div class="alert-banner" id="alertBanner" style="display:none">
+    <div class="container">
+      <span class="alert-icon">⚠️</span>
+      <span id="alertText"></span>
+      <button onclick="document.getElementById('alertBanner').style.display='none'">✕</button>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <main class="main">
+    <div class="container">
+
+      <!-- Pantry Tab -->
+      <section id="pantryTab" class="tab-content active">
+        <div class="section-header">
+          <div>
+            <h1 class="section-title">Your Pantry</h1>
+            <p class="section-sub">Track what you have and when it expires</p>
+          </div>
+          <div class="filter-group">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn urgent" data-filter="urgent">Expiring Soon</button>
+            <button class="filter-btn" data-filter="good">Fresh</button>
+          </div>
+        </div>
+
+        <!-- Stats Row -->
+        <div class="stats-row" id="statsRow">
+          <div class="stat-card">
+            <div class="stat-value" id="statActive">—</div>
+            <div class="stat-label">Active Items</div>
+          </div>
+          <div class="stat-card warning">
+            <div class="stat-value" id="statExpiring">—</div>
+            <div class="stat-label">Expiring in 3 Days</div>
+          </div>
+          <div class="stat-card success">
+            <div class="stat-value" id="statSaved">—</div>
+            <div class="stat-label">Items Rescued</div>
+          </div>
+          <div class="stat-card info">
+            <div class="stat-value" id="statRate">—%</div>
+            <div class="stat-label">Rescue Rate</div>
+          </div>
+        </div>
+
+        <!-- Item Grid -->
+        <div class="items-grid" id="itemsGrid">
+          <div class="loading">Loading your pantry...</div>
+        </div>
+      </section>
+
+      <!-- Recipes Tab -->
+      <section id="recipesTab" class="tab-content">
+        <div class="section-header">
+          <div>
+            <h1 class="section-title">AI Recipe Suggestions</h1>
+            <p class="section-sub">Claude generates recipes to use your expiring ingredients</p>
+          </div>
+        </div>
+
+        <div class="recipe-generate-panel">
+          <div class="generate-info">
+            <span class="ai-badge">✨ Powered by Claude AI</span>
+            <p>Select ingredients expiring soon and get personalized recipes to use them up before they go to waste.</p>
+          </div>
+          <div class="expiring-select" id="expiringSelect">
+            <p class="loading-sm">Loading expiring items...</p>
+          </div>
+          <button class="btn btn-primary btn-lg" id="generateBtn" onclick="generateRecipes()">
+            <span class="btn-icon">🍳</span> Generate Recipes
+          </button>
+        </div>
+
+        <div id="recipesOutput" class="recipes-output" style="display:none"></div>
+      </section>
+
+      <!-- Impact Tab -->
+      <section id="impactTab" class="tab-content">
+        <div class="section-header">
+          <div>
+            <h1 class="section-title">Your Environmental Impact</h1>
+            <p class="section-sub">See the difference you're making</p>
+          </div>
+        </div>
+
+        <div class="impact-hero">
+          <div class="impact-metric primary">
+            <div class="impact-icon">💚</div>
+            <div class="impact-number" id="impactSavings">$0</div>
+            <div class="impact-label">Estimated Money Saved</div>
+            <div class="impact-note">vs. average household waste</div>
+          </div>
+          <div class="impact-metric secondary">
+            <div class="impact-icon">🌍</div>
+            <div class="impact-number" id="impactCo2">0 kg</div>
+            <div class="impact-label">CO₂ Emissions Prevented</div>
+            <div class="impact-note">from decomposing food waste</div>
+          </div>
+          <div class="impact-metric secondary">
+            <div class="impact-icon">♻️</div>
+            <div class="impact-number" id="impactRate">0%</div>
+            <div class="impact-label">Food Rescue Rate</div>
+            <div class="impact-note">items used vs. wasted</div>
+          </div>
+        </div>
+
+        <div class="impact-context">
+          <h2>Why This Matters</h2>
+          <div class="facts-grid">
+            <div class="fact-card">
+              <div class="fact-num">⅓</div>
+              <p>of all food produced globally is lost or wasted each year</p>
+            </div>
+            <div class="fact-card">
+              <div class="fact-num">$1,500</div>
+              <p>average annual food waste cost per U.S. household</p>
+            </div>
+            <div class="fact-card">
+              <div class="fact-num">10%</div>
+              <p>of global greenhouse gas emissions from food waste</p>
+            </div>
+            <div class="fact-card">
+              <div class="fact-num">4× more</div>
+              <p>water is used to produce food that gets wasted vs. what's eaten</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="waste-history">
+          <h2>Recent History</h2>
+          <div id="historyList" class="history-list">
+            <p class="empty-state">No history yet. Mark items as used or wasted to track your impact.</p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Add Item Modal -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+      <div class="modal-header">
+        <h2>Add Pantry Item</h2>
+        <button class="modal-close" onclick="closeModal()">✕</button>
+      </div>
+      <form id="addItemForm" onsubmit="submitItem(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Item Name *</label>
+            <input type="text" id="itemName" placeholder="e.g. Spinach" required>
+          </div>
+          <div class="form-group sm">
+            <label>Category</label>
+            <select id="itemCategory">
+              <option value="vegetables">🥦 Vegetables</option>
+              <option value="fruits">🍎 Fruits</option>
+              <option value="meat">🥩 Meat & Fish</option>
+              <option value="dairy">🥛 Dairy</option>
+              <option value="grains">🌾 Grains</option>
+              <option value="leftovers">🍱 Leftovers</option>
+              <option value="other">📦 Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group sm">
+            <label>Quantity</label>
+            <input type="number" id="itemQty" value="1" min="0.1" step="0.1">
+          </div>
+          <div class="form-group sm">
+            <label>Unit</label>
+            <input type="text" id="itemUnit" placeholder="e.g. bag, pieces" value="unit">
+          </div>
+          <div class="form-group">
+            <label>Expiry Date *</label>
+            <input type="date" id="itemExpiry" required>
+          </div>
+        </div>
+        <div class="form-actions">
+          <button type="button" class="btn btn-ghost" onclick="closeModal()">Cancel</button>
+          <button type="submit" class="btn btn-primary">Add to Pantry</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
