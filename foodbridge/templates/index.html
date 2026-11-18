@@ -1,0 +1,153 @@
+{% extends "base.html" %}
+{% block title %}FoodBridge — Rescue Food, Feed Communities{% endblock %}
+{% block content %}
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-badge">🌍 Tackling Food Waste & Food Insecurity</div>
+      <h1>Bridge the gap between<br><span class="gradient-text">surplus and need</span></h1>
+      <p class="hero-sub">FoodBridge connects restaurants, grocers, and event venues with food banks, shelters, and families — turning food waste into community nourishment.</p>
+      <div class="hero-actions">
+        <a href="/donate" class="btn btn-primary btn-lg">Donate Surplus Food</a>
+        <a href="/find" class="btn btn-secondary btn-lg">Find Food Near Me</a>
+      </div>
+      <div class="hero-facts">
+        <div class="fact">
+          <strong>40%</strong>
+          <span>of US food is wasted</span>
+        </div>
+        <div class="fact">
+          <strong>44M</strong>
+          <span>Americans face food insecurity</span>
+        </div>
+        <div class="fact">
+          <strong>8%</strong>
+          <span>of GHG emissions from food waste</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="impact-card-hero" id="liveStats">
+        <div class="impact-card-title">Live Community Impact</div>
+        <div class="impact-metric"><span class="metric-value" id="heroMeals">—</span><span class="metric-label">Meals Provided</span></div>
+        <div class="impact-metric"><span class="metric-value" id="heroKg">—</span><span class="metric-label">kg Food Rescued</span></div>
+        <div class="impact-metric"><span class="metric-value" id="heroCO2">—</span><span class="metric-label">kg CO₂ Prevented</span></div>
+        <div class="impact-metric"><span class="metric-value" id="heroAvailable">—</span><span class="metric-label">Active Listings</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="how-it-works">
+  <div class="container">
+    <h2>How It Works</h2>
+    <p class="section-sub">Simple. Fast. No food left behind.</p>
+    <div class="steps-grid">
+      <div class="step">
+        <div class="step-icon">🍱</div>
+        <div class="step-num">1</div>
+        <h3>Donors List Surplus</h3>
+        <p>Restaurants, grocery stores, hotels, and farms post available surplus food — quantity, type, pickup window, and location.</p>
+      </div>
+      <div class="step-arrow">→</div>
+      <div class="step">
+        <div class="step-icon">🔍</div>
+        <div class="step-num">2</div>
+        <h3>Recipients Browse & Claim</h3>
+        <p>Food banks, shelters, and community members search listings by category or location and reserve pickups in real time.</p>
+      </div>
+      <div class="step-arrow">→</div>
+      <div class="step">
+        <div class="step-icon">🤝</div>
+        <div class="step-num">3</div>
+        <h3>Connect & Pick Up</h3>
+        <p>Donor and recipient coordinate pickup. Food reaches people, not landfills. Impact is tracked automatically.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="categories-section">
+  <div class="container">
+    <h2>What We Rescue</h2>
+    <div class="categories-grid">
+      <div class="category-card">
+        <span class="cat-icon">🥗</span>
+        <strong>Prepared Food</strong>
+        <span>Restaurant & catering surplus</span>
+      </div>
+      <div class="category-card">
+        <span class="cat-icon">🥦</span>
+        <strong>Fresh Produce</strong>
+        <span>Farms & market surplus</span>
+      </div>
+      <div class="category-card">
+        <span class="cat-icon">🍞</span>
+        <strong>Bakery</strong>
+        <span>Day-old breads & pastries</span>
+      </div>
+      <div class="category-card">
+        <span class="cat-icon">🥛</span>
+        <strong>Dairy</strong>
+        <span>Near-expiry dairy products</span>
+      </div>
+      <div class="category-card">
+        <span class="cat-icon">🥫</span>
+        <strong>Non-Perishables</strong>
+        <span>Canned & packaged goods</span>
+      </div>
+      <div class="category-card">
+        <span class="cat-icon">🍖</span>
+        <strong>Protein</strong>
+        <span>Meat, fish & plant proteins</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="recent-listings">
+  <div class="container">
+    <h2>Available Now</h2>
+    <p class="section-sub">Fresh listings in San Francisco — updated in real time</p>
+    <div class="listings-grid" id="recentListings">
+      <div class="loading-spinner">Loading listings…</div>
+    </div>
+    <div class="see-more">
+      <a href="/find" class="btn btn-outline">See All Available Food →</a>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="container">
+    <div class="cta-card">
+      <h2>Have surplus food?</h2>
+      <p>Every listing you post can feed families and reduce greenhouse gas emissions. It takes under 2 minutes.</p>
+      <a href="/donate" class="btn btn-white btn-lg">Post Your First Listing</a>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+fetch('/api/seed', {method: 'POST'}).then(() => {
+  fetch('/api/stats').then(r => r.json()).then(data => {
+    document.getElementById('heroMeals').textContent = data.totals.meals.toLocaleString();
+    document.getElementById('heroKg').textContent = data.totals.kg_rescued.toLocaleString();
+    document.getElementById('heroCO2').textContent = data.totals.co2_saved_kg.toLocaleString();
+    document.getElementById('heroAvailable').textContent = data.totals.available.toLocaleString();
+  });
+  fetch('/api/listings?status=available').then(r => r.json()).then(listings => {
+    const container = document.getElementById('recentListings');
+    if (!listings.length) {
+      container.innerHTML = '<p class="no-listings">No listings right now. <a href="/donate">Be the first to donate!</a></p>';
+      return;
+    }
+    container.innerHTML = listings.slice(0, 6).map(l => renderListingCard(l)).join('');
+  });
+});
+</script>
+{% endblock %}

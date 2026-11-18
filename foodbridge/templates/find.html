@@ -1,0 +1,190 @@
+{% extends "base.html" %}
+{% block title %}Find Food — FoodBridge{% endblock %}
+{% block content %}
+
+<section class="page-header">
+  <div class="container">
+    <h1>Find Available Food</h1>
+    <p>Browse surplus food listings near you. Reserve for free — no account needed.</p>
+  </div>
+</section>
+
+<section class="find-section">
+  <div class="container">
+    <div class="filter-bar">
+      <div class="filter-group">
+        <label>Category</label>
+        <select id="filterCategory">
+          <option value="">All Categories</option>
+          <option value="prepared">Prepared Food</option>
+          <option value="produce">Fresh Produce</option>
+          <option value="bakery">Bakery</option>
+          <option value="dairy">Dairy</option>
+          <option value="protein">Protein</option>
+          <option value="non-perishable">Non-Perishable</option>
+          <option value="beverages">Beverages</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label>City</label>
+        <input type="text" id="filterCity" placeholder="e.g. San Francisco">
+      </div>
+      <button class="btn btn-primary" onclick="loadListings()">Search</button>
+      <span class="listing-count" id="listingCount"></span>
+    </div>
+
+    <div class="listings-grid" id="listingsGrid">
+      <div class="loading-spinner">Loading listings…</div>
+    </div>
+  </div>
+</section>
+
+<!-- Claim Modal -->
+<div class="modal-overlay" id="claimModal" style="display:none;" onclick="closeModal(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <h2>Reserve This Food</h2>
+    <div class="modal-listing-info" id="modalListingInfo"></div>
+
+    <div id="claimSuccess" class="success-banner" style="display:none;">
+      <span>✅</span>
+      <div><strong>Reserved!</strong><p id="claimSuccessMsg"></p></div>
+    </div>
+    <div id="claimError" class="error-banner" style="display:none;"></div>
+
+    <form id="claimForm" novalidate>
+      <input type="hidden" id="claimListingId">
+      <div class="form-group">
+        <label>Your Name / Organization <span class="req">*</span></label>
+        <input type="text" id="claimName" placeholder="e.g. Community Food Bank" required>
+      </div>
+      <div class="form-group">
+        <label>Recipient Type <span class="req">*</span></label>
+        <select id="claimType" required>
+          <option value="">Select…</option>
+          <option value="food_bank">Food Bank / Pantry</option>
+          <option value="shelter">Shelter / Housing</option>
+          <option value="community_org">Community Organization</option>
+          <option value="individual">Individual / Family</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Contact (Phone or Email) <span class="req">*</span></label>
+        <input type="text" id="claimContact" placeholder="For coordination with donor" required>
+      </div>
+      <div class="form-group">
+        <label>Preferred Pickup Time <span class="req">*</span></label>
+        <input type="datetime-local" id="claimPickupTime" required>
+      </div>
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary btn-lg" id="claimSubmitBtn">Confirm Reservation</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+let currentListings = [];
+
+function loadListings() {
+  const category = document.getElementById('filterCategory').value;
+  const city = document.getElementById('filterCity').value;
+  const params = new URLSearchParams({status: 'available'});
+  if (category) params.append('category', category);
+  if (city) params.append('city', city);
+
+  document.getElementById('listingsGrid').innerHTML = '<div class="loading-spinner">Loading…</div>';
+
+  fetch('/api/listings?' + params).then(r => r.json()).then(listings => {
+    currentListings = listings;
+    document.getElementById('listingCount').textContent =
+      listings.length ? `${listings.length} listing${listings.length !== 1 ? 's' : ''} found` : '';
+    const grid = document.getElementById('listingsGrid');
+    if (!listings.length) {
+      grid.innerHTML = `<div class="no-listings">
+        <p>No listings found. Try adjusting your filters.</p>
+        <a href="/donate" class="btn btn-outline">Donate Food Instead →</a>
+      </div>`;
+      return;
+    }
+    grid.innerHTML = listings.map(l => renderListingCard(l, true)).join('');
+  });
+}
+
+function openClaimModal(listingId) {
+  const listing = currentListings.find(l => l.id === listingId);
+  if (!listing) return;
+  document.getElementById('claimListingId').value = listingId;
+  document.getElementById('modalListingInfo').innerHTML = `
+    <div class="modal-listing-preview">
+      <span class="cat-badge">${categoryIcon(listing.food_category)} ${listing.food_category}</span>
+      <h3>${listing.food_name}</h3>
+      <p><strong>${listing.quantity} ${listing.unit}</strong> from ${listing.donor_name}</p>
+      <p>📍 ${listing.neighborhood}, ${listing.city} &nbsp;·&nbsp; Use by: ${formatDate(listing.expiry_date)}</p>
+    </div>`;
+  document.getElementById('claimSuccess').style.display = 'none';
+  document.getElementById('claimError').style.display = 'none';
+  document.getElementById('claimForm').style.display = 'block';
+  document.getElementById('claimPickupTime').min = new Date().toISOString().slice(0,16);
+  document.getElementById('claimModal').style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal(e) {
+  if (!e || e.target === document.getElementById('claimModal') || e.type === 'click') {
+    document.getElementById('claimModal').style.display = 'none';
+    document.body.style.overflow = '';
+  }
+}
+
+document.getElementById('claimForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const btn = document.getElementById('claimSubmitBtn');
+  btn.disabled = true;
+  btn.textContent = 'Reserving…';
+
+  const listingId = document.getElementById('claimListingId').value;
+  const data = {
+    recipient_name: document.getElementById('claimName').value,
+    recipient_type: document.getElementById('claimType').value,
+    contact: document.getElementById('claimContact').value,
+    pickup_time: document.getElementById('claimPickupTime').value,
+  };
+
+  document.getElementById('claimError').style.display = 'none';
+
+  try {
+    const res = await fetch(`/api/listings/${listingId}/claim`, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(data)
+    });
+    const result = await res.json();
+    if (res.ok) {
+      document.getElementById('claimSuccess').style.display = 'flex';
+      document.getElementById('claimSuccessMsg').textContent = result.message;
+      document.getElementById('claimForm').style.display = 'none';
+      loadListings();
+    } else {
+      document.getElementById('claimError').style.display = 'block';
+      document.getElementById('claimError').textContent = result.error || 'Something went wrong.';
+    }
+  } catch {
+    document.getElementById('claimError').style.display = 'block';
+    document.getElementById('claimError').textContent = 'Network error. Please try again.';
+  }
+
+  btn.disabled = false;
+  btn.textContent = 'Confirm Reservation';
+});
+
+// Initialize
+fetch('/api/seed', {method: 'POST'}).then(() => loadListings());
+document.getElementById('filterCity').addEventListener('keydown', e => { if (e.key === 'Enter') loadListings(); });
+</script>
+{% endblock %}

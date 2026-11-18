@@ -1,0 +1,230 @@
+{% extends "base.html" %}
+{% block title %}Donate Food — FoodBridge{% endblock %}
+{% block content %}
+
+<section class="page-header">
+  <div class="container">
+    <h1>Donate Surplus Food</h1>
+    <p>Post food that would otherwise go to waste. Listings go live immediately.</p>
+  </div>
+</section>
+
+<section class="form-section">
+  <div class="container form-container">
+    <div class="form-card">
+      <div id="successMessage" class="success-banner" style="display:none;">
+        <span>✅</span>
+        <div>
+          <strong>Listing posted successfully!</strong>
+          <p id="successDetail"></p>
+        </div>
+      </div>
+      <div id="errorMessage" class="error-banner" style="display:none;"></div>
+
+      <form id="donateForm" novalidate>
+        <h2 class="form-section-title">About You</h2>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="donor_name">Organization / Name <span class="req">*</span></label>
+            <input type="text" id="donor_name" name="donor_name" placeholder="e.g. Green Leaf Bistro" required>
+          </div>
+          <div class="form-group">
+            <label for="donor_type">Donor Type <span class="req">*</span></label>
+            <select id="donor_type" name="donor_type" required>
+              <option value="">Select type…</option>
+              <option value="restaurant">Restaurant / Cafe</option>
+              <option value="grocery">Grocery Store / Market</option>
+              <option value="bakery">Bakery</option>
+              <option value="hotel">Hotel / Event Venue</option>
+              <option value="catering">Catering Company</option>
+              <option value="farm">Farm / Agricultural</option>
+              <option value="institution">Institution (School, Hospital)</option>
+              <option value="individual">Individual</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+        </div>
+
+        <h2 class="form-section-title">Food Details</h2>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="food_name">Food Item Name <span class="req">*</span></label>
+            <input type="text" id="food_name" name="food_name" placeholder="e.g. Mixed Vegetable Stir-Fry" required>
+          </div>
+          <div class="form-group">
+            <label for="food_category">Category <span class="req">*</span></label>
+            <select id="food_category" name="food_category" required>
+              <option value="">Select category…</option>
+              <option value="prepared">Prepared / Cooked Food</option>
+              <option value="produce">Fresh Produce</option>
+              <option value="bakery">Bakery Items</option>
+              <option value="dairy">Dairy</option>
+              <option value="protein">Meat / Protein</option>
+              <option value="non-perishable">Non-Perishable</option>
+              <option value="beverages">Beverages</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group form-group-sm">
+            <label for="quantity">Quantity <span class="req">*</span></label>
+            <input type="number" id="quantity" name="quantity" min="1" placeholder="e.g. 20" required>
+          </div>
+          <div class="form-group form-group-sm">
+            <label for="unit">Unit <span class="req">*</span></label>
+            <select id="unit" name="unit" required>
+              <option value="">Unit…</option>
+              <option value="portions">Portions / Servings</option>
+              <option value="lbs">Pounds (lbs)</option>
+              <option value="kg">Kilograms (kg)</option>
+              <option value="loaves">Loaves</option>
+              <option value="cans">Cans</option>
+              <option value="boxes">Boxes</option>
+              <option value="bags">Bags</option>
+              <option value="trays">Trays</option>
+              <option value="gallons">Gallons</option>
+              <option value="liters">Liters</option>
+            </select>
+          </div>
+          <div class="form-group form-group-sm">
+            <label for="expiry_date">Use By Date <span class="req">*</span></label>
+            <input type="date" id="expiry_date" name="expiry_date" required>
+          </div>
+        </div>
+
+        <div class="impact-preview" id="impactPreview" style="display:none;">
+          <span class="impact-preview-icon">🌱</span>
+          <span id="impactText">Estimated impact will appear here</span>
+        </div>
+
+        <h2 class="form-section-title">Location</h2>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="neighborhood">Neighborhood / Area <span class="req">*</span></label>
+            <input type="text" id="neighborhood" name="neighborhood" placeholder="e.g. Downtown, Mission District" required>
+          </div>
+          <div class="form-group">
+            <label for="city">City <span class="req">*</span></label>
+            <input type="text" id="city" name="city" placeholder="e.g. San Francisco" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="notes">Additional Notes</label>
+          <textarea id="notes" name="notes" rows="3" placeholder="Pickup instructions, dietary info, allergens, packaging notes…"></textarea>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary btn-lg" id="submitBtn">
+            Post Listing
+          </button>
+          <p class="form-note">Your listing goes live immediately and stays active until claimed.</p>
+        </div>
+      </form>
+    </div>
+
+    <div class="form-sidebar">
+      <div class="sidebar-card">
+        <h3>Your Impact</h3>
+        <p>Every listing you post helps:</p>
+        <ul class="impact-list">
+          <li>🍽️ Feed families in need</li>
+          <li>🌍 Reduce landfill methane</li>
+          <li>💧 Save embedded water & energy</li>
+          <li>🤝 Strengthen your community</li>
+        </ul>
+      </div>
+      <div class="sidebar-card">
+        <h3>Quick Facts</h3>
+        <p>Food decomposing in landfills produces methane — a greenhouse gas <strong>80× more potent</strong> than CO₂ over 20 years.</p>
+        <p style="margin-top:12px;">A single restaurant surplus donation can feed <strong>20–50 people</strong>.</p>
+      </div>
+      <div class="sidebar-card">
+        <h3>What to Donate</h3>
+        <ul class="donation-tips">
+          <li>✅ Cooked food within safe temperature</li>
+          <li>✅ Day-old but fresh bakery items</li>
+          <li>✅ Produce close to peak ripeness</li>
+          <li>✅ Unopened packaged goods</li>
+          <li>❌ Opened containers without seals</li>
+          <li>❌ Food with visible mold</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+// Set min date to today
+document.getElementById('expiry_date').min = new Date().toISOString().split('T')[0];
+
+// Live impact estimate
+const UNIT_KG = {portions:0.3, lbs:0.453592, kg:1, loaves:0.45, cans:0.4,
+                  boxes:0.5, bags:0.5, trays:1.2, gallons:3.785, liters:1};
+function updateImpactPreview() {
+  const qty = parseFloat(document.getElementById('quantity').value);
+  const unit = document.getElementById('unit').value;
+  if (qty > 0 && unit) {
+    const kg = qty * (UNIT_KG[unit] || 0.5);
+    const meals = Math.max(1, Math.round(kg / 0.4));
+    const co2 = (kg * 2.5).toFixed(1);
+    document.getElementById('impactPreview').style.display = 'flex';
+    document.getElementById('impactText').innerHTML =
+      `Estimated: <strong>${meals} meals</strong> provided, <strong>${co2} kg CO₂</strong> prevented`;
+  } else {
+    document.getElementById('impactPreview').style.display = 'none';
+  }
+}
+document.getElementById('quantity').addEventListener('input', updateImpactPreview);
+document.getElementById('unit').addEventListener('change', updateImpactPreview);
+
+// Form submit
+document.getElementById('donateForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  btn.textContent = 'Posting…';
+
+  const data = Object.fromEntries(new FormData(this));
+  data.quantity = parseInt(data.quantity);
+
+  document.getElementById('errorMessage').style.display = 'none';
+  document.getElementById('successMessage').style.display = 'none';
+
+  try {
+    const res = await fetch('/api/listings', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(data)
+    });
+    const result = await res.json();
+    if (res.ok) {
+      document.getElementById('successMessage').style.display = 'flex';
+      const qty = data.quantity;
+      const unit = data.unit;
+      const kg = qty * (UNIT_KG[unit] || 0.5);
+      const meals = Math.max(1, Math.round(kg / 0.4));
+      document.getElementById('successDetail').textContent =
+        `"${data.food_name}" is now live. Estimated ${meals} meals for the community.`;
+      this.reset();
+      document.getElementById('impactPreview').style.display = 'none';
+      document.getElementById('successMessage').scrollIntoView({behavior:'smooth'});
+    } else {
+      document.getElementById('errorMessage').style.display = 'block';
+      document.getElementById('errorMessage').textContent = result.error || 'Something went wrong.';
+    }
+  } catch {
+    document.getElementById('errorMessage').style.display = 'block';
+    document.getElementById('errorMessage').textContent = 'Network error. Please try again.';
+  }
+
+  btn.disabled = false;
+  btn.textContent = 'Post Listing';
+});
+</script>
+{% endblock %}

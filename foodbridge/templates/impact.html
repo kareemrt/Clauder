@@ -1,0 +1,167 @@
+{% extends "base.html" %}
+{% block title %}Community Impact — FoodBridge{% endblock %}
+{% block content %}
+
+<section class="page-header">
+  <div class="container">
+    <h1>Community Impact</h1>
+    <p>Real numbers. Real change. Here's what the FoodBridge network has accomplished.</p>
+  </div>
+</section>
+
+<section class="impact-section">
+  <div class="container">
+    <div class="impact-hero-grid" id="impactHeroGrid">
+      <div class="loading-spinner">Loading impact data…</div>
+    </div>
+
+    <div class="impact-charts-row">
+      <div class="chart-card">
+        <h3>Meals Provided — Monthly Trend</h3>
+        <div class="chart-container">
+          <canvas id="mealsChart"></canvas>
+        </div>
+      </div>
+      <div class="chart-card">
+        <h3>Food Rescued by Category</h3>
+        <div class="chart-container">
+          <canvas id="categoryChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="context-section">
+      <h2>Why This Matters</h2>
+      <div class="context-grid">
+        <div class="context-card context-blue">
+          <div class="context-icon">🌍</div>
+          <h3>Environmental Impact</h3>
+          <p>Food waste is responsible for <strong>8–10%</strong> of global greenhouse gas emissions — more than the entire aviation industry. When food rots in landfills, it produces methane, a greenhouse gas <strong>80× more potent</strong> than CO₂ over 20 years.</p>
+          <p class="context-stat" id="treesContext">Every kg of food rescued prevents approximately 2.5 kg of CO₂-equivalent emissions.</p>
+        </div>
+        <div class="context-card context-green">
+          <div class="context-icon">🍽️</div>
+          <h3>Food Security Impact</h3>
+          <p><strong>44 million Americans</strong> — including 1 in 5 children — face food insecurity. Meanwhile, the US wastes approximately <strong>80 million tons</strong> of food per year. FoodBridge directly bridges this contradiction.</p>
+          <p class="context-stat" id="mealsContext">Each portion of food rescued equals approximately one full meal for a person in need.</p>
+        </div>
+        <div class="context-card context-orange">
+          <div class="context-icon">💰</div>
+          <h3>Economic Impact</h3>
+          <p>American households waste an average of <strong>$1,500 worth of food</strong> per year. For businesses, food waste represents real losses in purchased inventory, labor, water, and energy that went into producing it.</p>
+          <p class="context-stat">FoodBridge helps businesses recover value and build community goodwill from surplus they'd otherwise discard.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="cta-section-inner">
+      <h2>Add to the impact</h2>
+      <p>Every listing and every claim makes a difference. Join the community.</p>
+      <div class="cta-btn-row">
+        <a href="/donate" class="btn btn-primary btn-lg">Donate Surplus Food</a>
+        <a href="/find" class="btn btn-secondary btn-lg">Find Food Near You</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script>
+fetch('/api/seed', {method: 'POST'}).then(() => {
+  fetch('/api/stats').then(r => r.json()).then(data => {
+    const t = data.totals;
+    document.getElementById('impactHeroGrid').innerHTML = `
+      <div class="impact-hero-stat">
+        <div class="ihs-icon">🍽️</div>
+        <div class="ihs-value">${t.meals.toLocaleString()}</div>
+        <div class="ihs-label">Meals Provided</div>
+        <div class="ihs-sub">to people in need</div>
+      </div>
+      <div class="impact-hero-stat">
+        <div class="ihs-icon">⚖️</div>
+        <div class="ihs-value">${t.kg_rescued.toLocaleString()}</div>
+        <div class="ihs-label">kg Food Rescued</div>
+        <div class="ihs-sub">diverted from landfill</div>
+      </div>
+      <div class="impact-hero-stat">
+        <div class="ihs-icon">🌱</div>
+        <div class="ihs-value">${t.co2_saved_kg.toLocaleString()}</div>
+        <div class="ihs-label">kg CO₂ Prevented</div>
+        <div class="ihs-sub">≈ ${t.trees_equivalent} trees planted</div>
+      </div>
+      <div class="impact-hero-stat">
+        <div class="ihs-icon">🤝</div>
+        <div class="ihs-value">${t.claimed}</div>
+        <div class="ihs-label">Successful Transfers</div>
+        <div class="ihs-sub">${t.available} listings active now</div>
+      </div>
+    `;
+
+    // Update context stats
+    document.getElementById('treesContext').textContent =
+      `The ${t.co2_saved_kg} kg CO₂ we've saved is equivalent to planting ${t.trees_equivalent} trees.`;
+    document.getElementById('mealsContext').textContent =
+      `We've provided ${t.meals.toLocaleString()} meals, helping feed our community members who need it most.`;
+
+    // Monthly trend chart
+    const months = data.monthly_trend.map(m => m.month);
+    const meals = data.monthly_trend.map(m => m.meals);
+    const ctx1 = document.getElementById('mealsChart').getContext('2d');
+    new Chart(ctx1, {
+      type: 'bar',
+      data: {
+        labels: months,
+        datasets: [{
+          label: 'Meals Provided',
+          data: meals,
+          backgroundColor: 'rgba(34, 197, 94, 0.7)',
+          borderColor: 'rgba(34, 197, 94, 1)',
+          borderWidth: 2,
+          borderRadius: 6,
+        }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: {
+          y: { beginAtZero: true, grid: { color: 'rgba(0,0,0,0.05)' } },
+          x: { grid: { display: false } }
+        }
+      }
+    });
+
+    // Category chart
+    if (data.by_category.length) {
+      const catLabels = data.by_category.map(c => c.category);
+      const catCounts = data.by_category.map(c => c.count);
+      const catColors = ['#22c55e','#3b82f6','#f59e0b','#ec4899','#8b5cf6','#06b6d4','#f97316','#84cc16'];
+      const ctx2 = document.getElementById('categoryChart').getContext('2d');
+      new Chart(ctx2, {
+        type: 'doughnut',
+        data: {
+          labels: catLabels,
+          datasets: [{
+            data: catCounts,
+            backgroundColor: catColors.slice(0, catLabels.length),
+            borderWidth: 2,
+            borderColor: '#fff'
+          }]
+        },
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          plugins: {
+            legend: { position: 'right', labels: { font: { size: 13 }, padding: 16 } }
+          }
+        }
+      });
+    } else {
+      document.getElementById('categoryChart').parentElement.innerHTML =
+        '<p style="text-align:center;color:#666;padding:40px 0;">Complete more transfers to see category breakdown.</p>';
+    }
+  });
+});
+</script>
+{% endblock %}

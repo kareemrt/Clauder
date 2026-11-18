@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}FoodBridge{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">
+        <span class="logo-icon">🌉</span>
+        <span class="logo-text">FoodBridge</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="/" class="nav-link">Home</a></li>
+        <li><a href="/donate" class="nav-link nav-cta">Donate Food</a></li>
+        <li><a href="/find" class="nav-link">Find Food</a></li>
+        <li><a href="/impact" class="nav-link">Impact</a></li>
+      </ul>
+      <button class="nav-mobile-toggle" onclick="toggleMobileNav()">☰</button>
+    </div>
+    <div class="mobile-nav" id="mobileNav">
+      <a href="/">Home</a>
+      <a href="/donate">Donate Food</a>
+      <a href="/find">Find Food</a>
+      <a href="/impact">Impact</a>
+    </div>
+  </nav>
+
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="logo-icon">🌉</span>
+        <strong>FoodBridge</strong>
+        <p>Turning surplus into sustenance.</p>
+      </div>
+      <div class="footer-stats" id="footerStats">
+        <!-- filled by JS -->
+      </div>
+      <div class="footer-links">
+        <p>Built to fight food waste and food insecurity.</p>
+        <p>1 in 8 Americans are food insecure. 40% of US food goes to waste.</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2024 FoodBridge &mdash; Open Source &mdash; MIT License</p>
+    </div>
+  </footer>
+
+  <script src="/static/js/main.js"></script>
+  {% block scripts %}{% endblock %}
+  <script>
+    // Load footer stats
+    fetch('/api/stats').then(r => r.json()).then(data => {
+      const el = document.getElementById('footerStats');
+      if (el) {
+        el.innerHTML = `
+          <div class="footer-stat"><span>${data.totals.meals.toLocaleString()}</span><small>Meals Provided</small></div>
+          <div class="footer-stat"><span>${data.totals.kg_rescued.toLocaleString()}</span><small>kg Food Rescued</small></div>
+          <div class="footer-stat"><span>${data.totals.co2_saved_kg.toLocaleString()}</span><small>kg CO₂ Saved</small></div>
+        `;
+      }
+    }).catch(() => {});
+    function toggleMobileNav() {
+      document.getElementById('mobileNav').classList.toggle('open');
+    }
+  </script>
+</body>
+</html>
