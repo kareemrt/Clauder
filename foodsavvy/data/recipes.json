@@ -1,0 +1,162 @@
+[
+  {
+    "name": "Banana Oat Pancakes",
+    "ingredients": ["banana", "oats", "egg", "milk", "cinnamon"],
+    "instructions": "Mash bananas. Mix with oats, egg, and milk. Cook on medium heat 2-3 min per side.",
+    "prep_time": 15,
+    "servings": 2,
+    "tags": ["breakfast", "sweet", "gluten-free-option"]
+  },
+  {
+    "name": "Veggie Stir-Fry",
+    "ingredients": ["carrot", "broccoli", "pepper", "onion", "garlic", "soy sauce", "oil"],
+    "instructions": "Heat oil. Sauté garlic and onion. Add vegetables, stir-fry 5-7 min. Add soy sauce.",
+    "prep_time": 20,
+    "servings": 2,
+    "tags": ["dinner", "vegan", "quick"]
+  },
+  {
+    "name": "Spinach & Egg Scramble",
+    "instructions": "Wilt spinach in butter. Add beaten eggs, scramble until set. Season with salt and pepper.",
+    "ingredients": ["spinach", "egg", "butter", "salt", "pepper"],
+    "prep_time": 10,
+    "servings": 1,
+    "tags": ["breakfast", "quick", "high-protein"]
+  },
+  {
+    "name": "Tomato & Lentil Soup",
+    "ingredients": ["tomato", "lentils", "onion", "garlic", "cumin", "vegetable broth"],
+    "instructions": "Sauté onion and garlic. Add tomatoes, lentils and broth. Simmer 25 min. Blend partially.",
+    "prep_time": 35,
+    "servings": 4,
+    "tags": ["soup", "vegan", "high-protein"]
+  },
+  {
+    "name": "Apple Cinnamon Oatmeal",
+    "ingredients": ["apple", "oats", "cinnamon", "milk", "honey"],
+    "instructions": "Cook oats with milk. Top with diced apple, cinnamon and honey.",
+    "prep_time": 10,
+    "servings": 1,
+    "tags": ["breakfast", "quick", "sweet"]
+  },
+  {
+    "name": "Pasta Primavera",
+    "ingredients": ["pasta", "zucchini", "cherry tomato", "garlic", "olive oil", "parmesan"],
+    "instructions": "Cook pasta. Sauté vegetables in olive oil with garlic. Toss with pasta and cheese.",
+    "prep_time": 25,
+    "servings": 3,
+    "tags": ["dinner", "vegetarian", "italian"]
+  },
+  {
+    "name": "Chicken & Rice Bowl",
+    "ingredients": ["chicken", "rice", "broccoli", "garlic", "soy sauce", "sesame oil"],
+    "instructions": "Cook rice. Sauté chicken until cooked through. Steam broccoli. Mix sauce and serve.",
+    "prep_time": 30,
+    "servings": 2,
+    "tags": ["dinner", "high-protein", "meal-prep"]
+  },
+  {
+    "name": "Berry Smoothie",
+    "ingredients": ["strawberry", "blueberry", "banana", "yogurt", "milk"],
+    "instructions": "Blend all ingredients until smooth. Add ice if desired.",
+    "prep_time": 5,
+    "servings": 1,
+    "tags": ["breakfast", "snack", "quick", "sweet"]
+  },
+  {
+    "name": "Avocado Toast",
+    "ingredients": ["avocado", "bread", "lemon", "salt", "red pepper flakes"],
+    "instructions": "Toast bread. Mash avocado with lemon juice and salt. Spread on toast. Top with red pepper.",
+    "prep_time": 5,
+    "servings": 1,
+    "tags": ["breakfast", "quick", "vegan"]
+  },
+  {
+    "name": "Mushroom Omelette",
+    "ingredients": ["egg", "mushroom", "cheese", "butter", "herbs"],
+    "instructions": "Beat eggs. Melt butter in pan. Pour in eggs. Add mushrooms and cheese. Fold and serve.",
+    "prep_time": 15,
+    "servings": 1,
+    "tags": ["breakfast", "quick", "vegetarian"]
+  },
+  {
+    "name": "Roasted Root Vegetables",
+    "ingredients": ["carrot", "potato", "turnip", "parsnip", "rosemary", "olive oil"],
+    "instructions": "Chop vegetables. Toss with oil and herbs. Roast at 400°F for 35-40 min.",
+    "prep_time": 45,
+    "servings": 4,
+    "tags": ["dinner", "vegan", "meal-prep"]
+  },
+  {
+    "name": "Greek Salad",
+    "ingredients": ["cucumber", "tomato", "feta cheese", "olive", "red onion", "olive oil", "oregano"],
+    "instructions": "Chop and combine vegetables. Add olives and feta. Drizzle with olive oil and oregano.",
+    "prep_time": 10,
+    "servings": 2,
+    "tags": ["salad", "vegetarian", "quick", "mediterranean"]
+  },
+  {
+    "name": "Lemon Herb Salmon",
+    "ingredients": ["salmon", "lemon", "garlic", "dill", "butter"],
+    "instructions": "Season salmon with garlic and dill. Pan-sear 4 min per side. Finish with lemon and butter.",
+    "prep_time": 15,
+    "servings": 2,
+    "tags": ["dinner", "high-protein", "fish"]
+  },
+  {
+    "name": "Corn & Black Bean Quesadilla",
+    "ingredients": ["tortilla", "black beans", "corn", "cheese", "salsa", "sour cream"],
+    "instructions": "Layer beans, corn, and cheese on tortilla. Cook until golden. Serve with salsa.",
+    "prep_time": 15,
+    "servings": 2,
+    "tags": ["dinner", "lunch", "vegetarian", "quick"]
+  },
+  {
+    "name": "Potato & Leek Soup",
+    "ingredients": ["potato", "leek", "onion", "butter", "vegetable broth", "cream"],
+    "instructions": "Sauté leek and onion. Add potato and broth. Simmer 20 min. Blend until smooth.",
+    "prep_time": 35,
+    "servings": 4,
+    "tags": ["soup", "vegetarian", "comfort"]
+  },
+  {
+    "name": "Overnight Oats",
+    "ingredients": ["oats", "milk", "yogurt", "chia seeds", "fruit", "honey"],
+    "instructions": "Mix oats, milk, yogurt and chia seeds. Refrigerate overnight. Top with fruit in morning.",
+    "prep_time": 5,
+    "servings": 1,
+    "tags": ["breakfast", "meal-prep", "quick"]
+  },
+  {
+    "name": "Vegetable Frittata",
+    "ingredients": ["egg", "zucchini", "tomato", "onion", "cheese", "herbs"],
+    "instructions": "Sauté vegetables. Pour beaten eggs over. Cook stovetop then finish under broiler.",
+    "prep_time": 25,
+    "servings": 4,
+    "tags": ["breakfast", "dinner", "vegetarian", "meal-prep"]
+  },
+  {
+    "name": "Pesto Pasta",
+    "ingredients": ["pasta", "basil", "garlic", "pine nuts", "parmesan", "olive oil"],
+    "instructions": "Blend basil, garlic, nuts, and cheese with olive oil. Toss with cooked pasta.",
+    "prep_time": 20,
+    "servings": 3,
+    "tags": ["dinner", "vegetarian", "italian", "quick"]
+  },
+  {
+    "name": "Spiced Chickpea Bowl",
+    "ingredients": ["chickpeas", "spinach", "tomato", "cumin", "turmeric", "rice"],
+    "instructions": "Sauté chickpeas with spices. Add tomatoes and spinach. Serve over rice.",
+    "prep_time": 20,
+    "servings": 2,
+    "tags": ["dinner", "vegan", "high-protein", "meal-prep"]
+  },
+  {
+    "name": "Fruit Crumble",
+    "ingredients": ["apple", "pear", "oats", "butter", "sugar", "cinnamon", "flour"],
+    "instructions": "Mix fruit with sugar. Top with oat crumble mixture. Bake at 375°F for 30 min.",
+    "prep_time": 40,
+    "servings": 6,
+    "tags": ["dessert", "sweet", "baking"]
+  }
+]
