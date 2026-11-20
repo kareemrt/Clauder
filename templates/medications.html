@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Medications – MediTrack</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-brand">
+      <span class="logo">💊</span>
+      <strong>MediTrack</strong>
+    </div>
+    <div class="nav-links">
+      <a href="/">Home</a>
+      <a href="/dashboard">Dashboard</a>
+      <a href="/medications" class="active">Medications</a>
+      <a href="/docs" target="_blank">API Docs</a>
+    </div>
+  </nav>
+
+  <main class="container">
+    <div class="page-header">
+      <h1>My Medications</h1>
+      <button class="btn btn-primary" onclick="showAddMedModal()">+ Add Medication</button>
+    </div>
+
+    <div class="filter-bar">
+      <label>
+        <input type="checkbox" id="active-only" onchange="loadMedications()" checked>
+        Show active only
+      </label>
+    </div>
+
+    <div id="medications-list" class="med-grid">
+      <p class="loading-text">Loading medications...</p>
+    </div>
+  </main>
+
+  <!-- Add/Edit Medication Modal -->
+  <div id="med-modal" class="modal hidden">
+    <div class="modal-content">
+      <h3 id="med-modal-title">Add Medication</h3>
+      <form id="med-form" onsubmit="saveMedication(event)">
+        <input type="hidden" id="med-id">
+        <div class="form-group">
+          <label for="med-name">Medication Name *</label>
+          <input type="text" id="med-name" placeholder="e.g. Metformin" required>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="med-dosage">Dosage *</label>
+            <input type="text" id="med-dosage" placeholder="e.g. 500mg" required>
+          </div>
+          <div class="form-group">
+            <label for="med-times">Times per Day *</label>
+            <input type="number" id="med-times" min="1" max="24" value="1" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="med-frequency">Frequency Description *</label>
+          <input type="text" id="med-frequency" placeholder="e.g. twice daily with meals" required>
+        </div>
+        <div class="form-group">
+          <label for="med-instructions">Special Instructions</label>
+          <textarea id="med-instructions" rows="2"
+            placeholder="e.g. Take with food, avoid grapefruit..."></textarea>
+        </div>
+        <div class="form-group">
+          <label for="med-end-date">End Date (leave blank if ongoing)</label>
+          <input type="date" id="med-end-date">
+        </div>
+        <div class="modal-actions">
+          <button type="submit" class="btn btn-primary">Save</button>
+          <button type="button" class="btn btn-secondary" onclick="closeMedModal()">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <p>MediTrack · <a href="/">Home</a> · <a href="https://github.com/kareemrt/clauder" target="_blank">GitHub</a></p>
+  </footer>
+
+  <script src="/static/js/app.js"></script>
+  <script src="/static/js/medications.js"></script>
+</body>
+</html>

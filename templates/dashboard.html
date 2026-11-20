@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard – MediTrack</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-brand">
+      <span class="logo">💊</span>
+      <strong>MediTrack</strong>
+    </div>
+    <div class="nav-links">
+      <a href="/">Home</a>
+      <a href="/dashboard" class="active">Dashboard</a>
+      <a href="/medications">Medications</a>
+      <a href="/docs" target="_blank">API Docs</a>
+    </div>
+  </nav>
+
+  <main class="container">
+    <h1>Your Health Dashboard</h1>
+
+    <div class="summary-cards" id="summary-cards">
+      <div class="summary-card loading">
+        <span class="card-number" id="stat-active-meds">–</span>
+        <span class="card-label">Active Medications</span>
+      </div>
+      <div class="summary-card loading">
+        <span class="card-number" id="stat-adherence">–</span>
+        <span class="card-label">30-Day Adherence</span>
+      </div>
+      <div class="summary-card loading">
+        <span class="card-number" id="stat-today-taken">–</span>
+        <span class="card-label">Doses Taken Today</span>
+      </div>
+      <div class="summary-card loading">
+        <span class="card-number" id="stat-today-remaining">–</span>
+        <span class="card-label">Remaining Today</span>
+      </div>
+    </div>
+
+    <div class="dashboard-grid">
+      <section class="panel">
+        <h2>Today's Doses</h2>
+        <div id="today-doses-list" class="dose-list">
+          <p class="loading-text">Loading...</p>
+        </div>
+        <button class="btn btn-secondary mt-2" onclick="showLogDoseModal()">+ Log a dose</button>
+      </section>
+
+      <section class="panel">
+        <h2>Log a Symptom</h2>
+        <form id="symptom-form" onsubmit="logSymptom(event)">
+          <div class="form-group">
+            <label for="symptom-name">Symptom</label>
+            <input type="text" id="symptom-name" placeholder="e.g. Headache, Fatigue" required>
+          </div>
+          <div class="form-group">
+            <label for="symptom-severity">Severity: <span id="severity-label">5</span>/10</label>
+            <input type="range" id="symptom-severity" min="1" max="10" value="5"
+              oninput="document.getElementById('severity-label').textContent = this.value">
+          </div>
+          <div class="form-group">
+            <label for="symptom-notes">Notes (optional)</label>
+            <textarea id="symptom-notes" rows="2" placeholder="Any additional details..."></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Log Symptom</button>
+        </form>
+      </section>
+    </div>
+
+    <section class="panel mt-4">
+      <h2>Medication Adherence (Last 30 Days)</h2>
+      <div id="adherence-chart">
+        <p class="loading-text">Loading adherence data...</p>
+      </div>
+    </section>
+
+    <section class="panel mt-4">
+      <h2>Recent Symptoms</h2>
+      <div id="symptoms-list">
+        <p class="loading-text">Loading symptoms...</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- Log Dose Modal -->
+  <div id="dose-modal" class="modal hidden">
+    <div class="modal-content">
+      <h3>Log a Dose</h3>
+      <form id="dose-form" onsubmit="logDose(event)">
+        <div class="form-group">
+          <label for="dose-medication">Medication</label>
+          <select id="dose-medication" required></select>
+        </div>
+        <div class="form-group">
+          <label for="dose-time">Scheduled Time</label>
+          <input type="datetime-local" id="dose-time" required>
+        </div>
+        <div class="form-group">
+          <label for="dose-taken">Was it taken?</label>
+          <select id="dose-taken">
+            <option value="true">Yes</option>
+            <option value="false">No</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="dose-notes">Notes</label>
+          <input type="text" id="dose-notes" placeholder="Optional notes">
+        </div>
+        <div class="modal-actions">
+          <button type="submit" class="btn btn-primary">Log Dose</button>
+          <button type="button" class="btn btn-secondary" onclick="closeDoseModal()">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <p>MediTrack · <a href="/">Home</a> · <a href="https://github.com/kareemrt/clauder" target="_blank">GitHub</a></p>
+  </footer>
+
+  <script src="/static/js/app.js"></script>
+  <script src="/static/js/dashboard.js"></script>
+</body>
+</html>
