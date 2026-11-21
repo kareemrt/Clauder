@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block title %}Browse Available Food — FoodRescue Connect{% endblock %}
+{% block content %}
+
+<section class="page-hero">
+    <div class="container">
+        <h1 class="page-title">Available Food Donations</h1>
+        <p class="page-subtitle">
+            {% if donations %}
+                {{ donations|length }} donation{{ 's' if donations|length != 1 else '' }} available
+                {% if selected_category %} in <strong>{{ selected_category }}</strong>{% endif %}
+            {% else %}
+                No donations available right now
+                {% if selected_category %} in {{ selected_category }}{% endif %}
+            {% endif %}
+        </p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <!-- Filter Bar -->
+        <div class="filter-bar">
+            <span class="filter-label">Filter by category:</span>
+            <div class="filter-chips">
+                <a href="{{ url_for('listings') }}"
+                   class="chip {% if not selected_category %}chip-active{% endif %}">All</a>
+                {% for cat in categories %}
+                    <a href="{{ url_for('listings', category=cat) }}"
+                       class="chip {% if selected_category == cat %}chip-active{% endif %}">{{ cat }}</a>
+                {% endfor %}
+            </div>
+        </div>
+
+        {% if donations %}
+            <div class="listings-grid">
+                {% for d in donations %}
+                <div class="listing-card listing-card-full">
+                    <div class="listing-header">
+                        <span class="category-badge">{{ d.category }}</span>
+                        {% if d.expiry_date %}
+                            <span class="expiry-badge">⏰ Expires {{ d.expiry_date }}</span>
+                        {% endif %}
+                    </div>
+                    <h3 class="listing-title">{{ d.food_description }}</h3>
+                    <div class="listing-details">
+                        <div class="listing-detail">
+                            <span class="detail-icon">🏪</span>
+                            <span><strong>{{ d.donor_name }}</strong> ({{ d.donor_type }})</span>
+                        </div>
+                        <div class="listing-detail">
+                            <span class="detail-icon">⚖️</span>
+                            <span>{{ d.quantity }} {{ d.unit }}</span>
+                        </div>
+                        <div class="listing-detail">
+                            <span class="detail-icon">📍</span>
+                            <span>{{ d.pickup_address }}</span>
+                        </div>
+                        {% if d.notes %}
+                        <div class="listing-detail listing-detail-notes">
+                            <span class="detail-icon">📝</span>
+                            <span>{{ d.notes }}</span>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="listing-footer listing-footer-full">
+                        <span class="listing-time">Posted {{ d.created_at[:10] }}</span>
+                        <a href="{{ url_for('claim', donation_id=d.id) }}" class="btn btn-primary">
+                            Claim This Donation →
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="empty-state">
+                <div class="empty-icon">🌱</div>
+                <h3>No donations available right now</h3>
+                <p>Be the first to post! Every contribution makes a difference.</p>
+                <a href="{{ url_for('donate') }}" class="btn btn-primary">Post Surplus Food</a>
+            </div>
+        {% endif %}
+    </div>
+</section>
+
+{% endblock %}

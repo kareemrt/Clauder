@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+{% block title %}Impact Dashboard — FoodRescue Connect{% endblock %}
+{% block content %}
+
+<section class="page-hero page-hero-green">
+    <div class="container">
+        <h1 class="page-title text-white">Our Collective Impact</h1>
+        <p class="page-subtitle text-white-80">Every rescue tracked, every meal counted, every ton of CO₂ avoided.</p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <!-- Big Stats -->
+        <div class="impact-stats-grid">
+            <div class="impact-stat-card impact-stat-green">
+                <div class="impact-stat-icon">⚖️</div>
+                <div class="impact-stat-number">{{ metrics.pounds }}<span class="impact-stat-unit">lbs</span></div>
+                <div class="impact-stat-label">Food Rescued</div>
+                <div class="impact-stat-sub">from landfill</div>
+            </div>
+            <div class="impact-stat-card impact-stat-orange">
+                <div class="impact-stat-icon">🍽️</div>
+                <div class="impact-stat-number">{{ metrics.meals }}<span class="impact-stat-unit">meals</span></div>
+                <div class="impact-stat-label">Meals Provided</div>
+                <div class="impact-stat-sub">to people in need</div>
+            </div>
+            <div class="impact-stat-card impact-stat-blue">
+                <div class="impact-stat-icon">🌍</div>
+                <div class="impact-stat-number">{{ metrics.co2_kg }}<span class="impact-stat-unit">kg</span></div>
+                <div class="impact-stat-label">CO₂ Avoided</div>
+                <div class="impact-stat-sub">greenhouse gases prevented</div>
+            </div>
+            <div class="impact-stat-card impact-stat-purple">
+                <div class="impact-stat-icon">🤝</div>
+                <div class="impact-stat-number">{{ total_donors + total_recipients }}</div>
+                <div class="impact-stat-label">Partners</div>
+                <div class="impact-stat-sub">{{ total_donors }} donors · {{ total_recipients }} recipients</div>
+            </div>
+        </div>
+
+        <!-- Breakdown by Category -->
+        {% if by_category %}
+        <div class="impact-section">
+            <h2 class="impact-section-title">Food Rescued by Category</h2>
+            <div class="category-bars">
+                {% set max_lbs = by_category[0].total_lbs if by_category else 1 %}
+                {% for row in by_category %}
+                <div class="category-bar-row">
+                    <div class="category-bar-label">{{ row.category }}</div>
+                    <div class="category-bar-track">
+                        <div class="category-bar-fill"
+                             style="width: {{ (row.total_lbs / max_lbs * 100)|round|int }}%"></div>
+                    </div>
+                    <div class="category-bar-value">{{ row.total_lbs|round(1) }} lbs</div>
+                    <div class="category-bar-count">{{ row.count }} rescue{{ 's' if row.count != 1 else '' }}</div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Recent Rescues -->
+        {% if recent_rescues %}
+        <div class="impact-section">
+            <h2 class="impact-section-title">Recent Rescues</h2>
+            <div class="rescues-table-wrap">
+                <table class="rescues-table">
+                    <thead>
+                        <tr>
+                            <th>Donor</th>
+                            <th>Food</th>
+                            <th>Recipient</th>
+                            <th>Lbs Rescued</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for r in recent_rescues %}
+                        <tr>
+                            <td class="td-bold">{{ r.donor_name }}</td>
+                            <td class="td-desc">{{ r.food_description[:40] }}{% if r.food_description|length > 40 %}...{% endif %}</td>
+                            <td>
+                                <span class="recipient-tag">{{ r.recipient_name }}</span>
+                                <span class="recipient-type">({{ r.recipient_type }})</span>
+                            </td>
+                            <td class="td-lbs">{{ r.pounds_rescued }} lbs</td>
+                            <td class="td-date">{{ r.logged_at[:10] }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Context Box -->
+        <div class="context-box">
+            <h3>📊 Why This Matters</h3>
+            <div class="context-grid">
+                <div class="context-item">
+                    <strong>40%</strong>
+                    <span>of all food produced in the US is wasted — roughly 80 million tons per year</span>
+                </div>
+                <div class="context-item">
+                    <strong>1 in 8</strong>
+                    <span>Americans face food insecurity, including 1 in 5 children</span>
+                </div>
+                <div class="context-item">
+                    <strong>8%</strong>
+                    <span>of global greenhouse gas emissions come from food waste decomposing in landfills</span>
+                </div>
+                <div class="context-item">
+                    <strong>$408B</strong>
+                    <span>in food value is wasted annually — enough to end US hunger four times over</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

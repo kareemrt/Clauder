@@ -1,0 +1,176 @@
+{% extends "base.html" %}
+{% block title %}FoodRescue Connect — Fighting Food Waste, Fighting Hunger{% endblock %}
+{% block content %}
+
+<!-- Hero Section -->
+<section class="hero">
+    <div class="container">
+        <div class="hero-content">
+            <div class="hero-badge">🌍 Community Food Rescue Network</div>
+            <h1 class="hero-title">
+                Turn Surplus Into<br>
+                <span class="text-green">Sustenance</span>
+            </h1>
+            <p class="hero-subtitle">
+                Every day, restaurants, bakeries, and stores discard perfectly good food
+                while families go hungry. FoodRescue Connect bridges that gap — instantly.
+            </p>
+            <div class="hero-actions">
+                <a href="{{ url_for('donate') }}" class="btn btn-primary btn-lg">
+                    Post Surplus Food
+                </a>
+                <a href="{{ url_for('listings') }}" class="btn btn-outline btn-lg">
+                    Find Available Food
+                </a>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="stats-card-grid">
+                <div class="stat-card stat-green">
+                    <div class="stat-number">{{ impact.pounds }}</div>
+                    <div class="stat-label">Pounds Rescued</div>
+                </div>
+                <div class="stat-card stat-orange">
+                    <div class="stat-number">{{ impact.meals }}</div>
+                    <div class="stat-label">Meals Provided</div>
+                </div>
+                <div class="stat-card stat-blue">
+                    <div class="stat-number">{{ rescues }}</div>
+                    <div class="stat-label">Successful Rescues</div>
+                </div>
+                <div class="stat-card stat-purple">
+                    <div class="stat-number">{{ impact.co2_kg }}kg</div>
+                    <div class="stat-label">CO₂ Avoided</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- How It Works -->
+<section class="section section-light">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">How It Works</h2>
+            <p class="section-subtitle">Three simple steps to rescue food and feed your community</p>
+        </div>
+        <div class="steps-grid">
+            <div class="step-card">
+                <div class="step-icon step-icon-green">📦</div>
+                <div class="step-number">1</div>
+                <h3 class="step-title">Donors Post Surplus</h3>
+                <p class="step-desc">Restaurants, bakeries, and grocery stores list their surplus food with pickup details and quantity in under 2 minutes.</p>
+            </div>
+            <div class="step-arrow">→</div>
+            <div class="step-card">
+                <div class="step-icon step-icon-orange">🔍</div>
+                <div class="step-number">2</div>
+                <h3 class="step-title">Recipients Browse & Claim</h3>
+                <p class="step-desc">Food banks, shelters, and community organizations browse available donations and claim what they need with one click.</p>
+            </div>
+            <div class="step-arrow">→</div>
+            <div class="step-card">
+                <div class="step-icon step-icon-blue">🤝</div>
+                <div class="step-number">3</div>
+                <h3 class="step-title">Food Gets Rescued</h3>
+                <p class="step-desc">Donor and recipient connect directly to arrange pickup. Food that would be wasted becomes meals for people who need them.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Active Listings Preview -->
+{% if active_listings > 0 %}
+<section class="section">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">Available Right Now</h2>
+            <p class="section-subtitle">{{ active_listings }} donation{{ 's' if active_listings != 1 else '' }} waiting to be rescued</p>
+        </div>
+        <div class="listings-preview-grid">
+            {% for d in recent %}
+                {% if d.status == 'available' %}
+                <div class="listing-card">
+                    <div class="listing-header">
+                        <span class="category-badge">{{ d.category }}</span>
+                        <span class="status-badge status-available">Available</span>
+                    </div>
+                    <h3 class="listing-title">{{ d.food_description[:60] }}{% if d.food_description|length > 60 %}...{% endif %}</h3>
+                    <div class="listing-meta">
+                        <span>🏪 {{ d.donor_name }}</span>
+                        <span>⚖️ {{ d.quantity }} {{ d.unit }}</span>
+                    </div>
+                    <div class="listing-footer">
+                        <span class="listing-location">📍 {{ d.pickup_address[:30] }}{% if d.pickup_address|length > 30 %}...{% endif %}</span>
+                        <a href="{{ url_for('claim', donation_id=d.id) }}" class="btn btn-sm btn-primary">Claim</a>
+                    </div>
+                </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div class="section-cta">
+            <a href="{{ url_for('listings') }}" class="btn btn-outline">View All Available Food →</a>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Impact Teaser -->
+<section class="section section-green-bg">
+    <div class="container">
+        <div class="impact-teaser">
+            <div class="impact-teaser-content">
+                <h2 class="section-title text-white">Every Pound Counts</h2>
+                <p class="text-white-80">
+                    When food is rescued instead of landfilled, it feeds families <em>and</em>
+                    prevents the greenhouse gases that rotting organic matter generates.
+                    It's a win for hunger and climate — simultaneously.
+                </p>
+                <div class="impact-mini-stats">
+                    <div class="impact-mini-stat">
+                        <span class="impact-mini-number">{{ impact.meals }}</span>
+                        <span class="impact-mini-label">meals served</span>
+                    </div>
+                    <div class="impact-mini-stat">
+                        <span class="impact-mini-number">{{ impact.co2_kg }}kg</span>
+                        <span class="impact-mini-label">CO₂ saved</span>
+                    </div>
+                </div>
+                <a href="{{ url_for('impact') }}" class="btn btn-white">See Full Impact Dashboard →</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Who It's For -->
+<section class="section section-light">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">Who Uses FoodRescue Connect</h2>
+        </div>
+        <div class="audience-grid">
+            <div class="audience-card">
+                <div class="audience-icon">🍽️</div>
+                <h3>Restaurants & Cafes</h3>
+                <p>End-of-day surplus, overproduction, and event leftovers — donate in minutes instead of discarding.</p>
+            </div>
+            <div class="audience-card">
+                <div class="audience-icon">🏪</div>
+                <h3>Grocery Stores</h3>
+                <p>Cosmetically imperfect produce, near-expiry items, and discontinued stock find a new purpose.</p>
+            </div>
+            <div class="audience-card">
+                <div class="audience-icon">🏦</div>
+                <h3>Food Banks</h3>
+                <p>Discover nearby donations in real time and claim what your clients need most.</p>
+            </div>
+            <div class="audience-card">
+                <div class="audience-icon">🏠</div>
+                <h3>Shelters & Kitchens</h3>
+                <p>Browse available meals and staples to supplement your programs and stretch your budget.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

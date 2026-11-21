@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}FoodRescue Connect{% endblock %}</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.13.5/cdn.min.js" defer></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container nav-inner">
+            <a href="{{ url_for('index') }}" class="nav-brand">
+                <span class="brand-icon">🌱</span>
+                <span class="brand-name">FoodRescue<span class="brand-accent">Connect</span></span>
+            </a>
+            <div class="nav-links">
+                <a href="{{ url_for('listings') }}" class="nav-link {% if request.endpoint == 'listings' %}active{% endif %}">
+                    Browse Food
+                </a>
+                <a href="{{ url_for('impact') }}" class="nav-link {% if request.endpoint == 'impact' %}active{% endif %}">
+                    Impact
+                </a>
+                <a href="{{ url_for('donate') }}" class="btn btn-primary nav-cta">
+                    Donate Food
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="flash-container">
+                {% for category, message in messages %}
+                    <div class="flash flash-{{ category }}">
+                        <span>{{ '✓' if category == 'success' else '⚠' }}</span>
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <!-- Page Content -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-brand">🌱 FoodRescueConnect</div>
+                    <p class="footer-tagline">Turning surplus into sustenance.<br>Fighting waste, feeding communities.</p>
+                </div>
+                <div>
+                    <h4 class="footer-heading">Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="{{ url_for('donate') }}">Donate Food</a></li>
+                        <li><a href="{{ url_for('listings') }}">Find Food</a></li>
+                        <li><a href="{{ url_for('impact') }}">Our Impact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer-heading">The Problem</h4>
+                    <p class="footer-stat">40% of US food is wasted</p>
+                    <p class="footer-stat">1 in 8 Americans face hunger</p>
+                    <p class="footer-stat">$408B in food wasted annually</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>Built to fight food waste and food insecurity in our communities.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

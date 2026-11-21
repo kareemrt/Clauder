@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% block title %}Claim Donation — FoodRescue Connect{% endblock %}
+{% block content %}
+
+<section class="page-hero">
+    <div class="container">
+        <h1 class="page-title">Claim Donation</h1>
+        <p class="page-subtitle">Almost there! Tell the donor who's coming to pick this up.</p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container container-narrow">
+        <!-- Donation Summary -->
+        <div class="donation-summary-card">
+            <h2 class="summary-title">📦 You're Claiming</h2>
+            <div class="summary-grid">
+                <div class="summary-item">
+                    <span class="summary-label">Food</span>
+                    <span class="summary-value">{{ donation.food_description }}</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Amount</span>
+                    <span class="summary-value">{{ donation.quantity }} {{ donation.unit }}</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">From</span>
+                    <span class="summary-value">{{ donation.donor_name }}</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Pickup</span>
+                    <span class="summary-value">{{ donation.pickup_address }}</span>
+                </div>
+                {% if donation.expiry_date %}
+                <div class="summary-item">
+                    <span class="summary-label">Expires</span>
+                    <span class="summary-value expiry-urgent">{{ donation.expiry_date }}</span>
+                </div>
+                {% endif %}
+                {% if donation.notes %}
+                <div class="summary-item summary-item-wide">
+                    <span class="summary-label">Notes</span>
+                    <span class="summary-value">{{ donation.notes }}</span>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Claim Form -->
+        <form method="POST" action="{{ url_for('claim', donation_id=donation.id) }}" class="form-card">
+            <div class="form-section">
+                <h2 class="form-section-title">🏦 Your Organization</h2>
+                <div class="form-grid">
+                    <div class="form-group form-group-wide">
+                        <label for="recipient_name" class="form-label">Organization / Name <span class="required">*</span></label>
+                        <input type="text" id="recipient_name" name="recipient_name"
+                               placeholder="e.g. City Food Bank" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient_type" class="form-label">Type <span class="required">*</span></label>
+                        <select id="recipient_type" name="recipient_type" class="form-select" required>
+                            {% for t in recipient_types %}
+                                <option value="{{ t }}">{{ t }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group form-group-wide">
+                        <label for="recipient_contact" class="form-label">Contact Info <span class="required">*</span></label>
+                        <input type="text" id="recipient_contact" name="recipient_contact"
+                               placeholder="e.g. pickup@foodbank.org | (555) 999-0000" class="form-input" required>
+                        <span class="form-hint">Shared with the donor so they can coordinate pickup.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-box info-box-orange">
+                <strong>⚡ What happens next:</strong> The donor's contact info will be shown to you immediately
+                after claiming so you can arrange pickup directly. No middleman, no delays.
+            </div>
+
+            <div class="form-actions">
+                <a href="{{ url_for('listings') }}" class="btn btn-outline">← Back to Listings</a>
+                <button type="submit" class="btn btn-primary btn-lg">
+                    🤝 Confirm Claim
+                </button>
+            </div>
+        </form>
+    </div>
+</section>
+
+{% endblock %}
